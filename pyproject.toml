@@ -1,0 +1,43 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "m87-grounded-retrieval"
+version = "0.1.0"
+description = "Hybrid retrieval over pgvector with the Citation Leash: support is decided before generation is permitted."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [{ name = "Mac McFall" }]
+keywords = ["retrieval", "rag", "pgvector", "bm25", "grounding"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Text Processing :: Indexing",
+]
+dependencies = [
+    "psycopg2-binary>=2.9",
+    "numpy>=1.24",
+    "sentence-transformers>=2.2",
+    "pytest>=7.4",
+]
+
+[project.urls]
+Homepage = "https://github.com/MacFall7/m87-grounded-retrieval"
+
+[project.scripts]
+grounded-ingest = "grounded_retrieval.ingest:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src", "tests"]
+addopts = "-q"
+markers = [
+    "integration: requires a reachable Postgres with pgvector; skipped otherwise",
+]
